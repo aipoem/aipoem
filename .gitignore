@@ -2,3 +2,4 @@
 txt_data/*
 
 *.ipynb
+__pycache__
