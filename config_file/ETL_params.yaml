@@ -1,0 +1,3 @@
+path_out : 'txt_data'
+poems : ["Guerra_dei_topi_e_delle_rane", 
+         "Gerusalemme_liberata"]
