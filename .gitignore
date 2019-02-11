@@ -1,5 +1,6 @@
 .ipynb_checkpoints
 txt_data/*
+parsed_data/*
 
 *.ipynb
 __pycache__

@@ -1,3 +1,18 @@
 path_out : 'txt_data'
 poems : ["Gerusalemme_liberata",
-         "La_Secchia_rapita"]
+         "La_Secchia_rapita",
+         "Giustizia",
+         "Atlantide",
+         "Guerra_dei_topi_e_delle_rane",
+         "Paralipomeni_della_Batracomiomachia",
+         "Iliade_(Monti)",
+         "Divina_Commedia"
+         "La_Commedia",
+         "La_morte"
+         "Eneide_(Caro)",
+         "Adone",
+         "Satire_(Ariosto)",
+         "Poesie_inedite_(Pellico)",
+         "Orlando_innamorato",
+         "Ove_son_giti_i_miei_dolci_pensieri",
+         "Canto_di_Ameto"]
