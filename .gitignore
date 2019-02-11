@@ -4,3 +4,4 @@ parsed_data/*
 
 *.ipynb
 __pycache__
+*.model
