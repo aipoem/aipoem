@@ -27,7 +27,7 @@ class poema():
         versi = verso(self.path_in)
         self.model = gensim.models.Word2Vec(
             versi, min_count=self.model_params["min_count"], size=self.model_params["size"])
-        self.model.save("word2vec.model")
+        self.model.save(self.model_params['model'])
         return self.model
 
     @property
