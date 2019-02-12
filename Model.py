@@ -3,6 +3,7 @@ import logging
 import os
 import glob
 import gensim
+from multiprocessing import cpu_count
 
 from gensim.test.utils import get_tmpfile
 from gensim.models import KeyedVectors
@@ -26,8 +27,8 @@ class poema():
         # At each loop, the loaded poem is appended to the string txt
         versi = verso(self.path_in)
         self.model = gensim.models.Word2Vec(
-            versi, min_count=self.model_params["min_count"], size=self.model_params["size"])
-        self.model.save(self.model_params['model'])
+            versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
+        self.model.save(self.model_params['filename'])
         return self.model
 
     @property
@@ -50,7 +51,7 @@ class poema():
 
     def nearest_neighbors(self, w):
         r = self.vectors.most_similar(positive=[w])
-        print("neighbors of: %s" % w)
+        print(f"Neighbors of {w}:")
         for word, score in r:
             print("\t%s" % word)
 
