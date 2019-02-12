@@ -31,7 +31,6 @@ for f in texts:
         if l =="ARGOMENTO.\n" or i:
             i=True
             if len(l)<22:
-                print(l)
                 continue
             if len(l)>60:
                 continue

@@ -10,7 +10,7 @@ class ETL():
     def __init__(self, params):
 
         self._poems = params['poems']
-        self.path_out = params['path_out']
+        self.path_out = self.select_or_create(params['path_out'])
 
     @property
     def poems(self):
@@ -18,13 +18,16 @@ class ETL():
 
     def download(self):
 
-        try:
-            os.stat(self.path_out)
-        except:
-            os.mkdir(self.path_out)
-
         for poem in self.poems:
             logger.info(f'Downloading {poem} with urllib2...')
             url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
             urllib.request.urlretrieve(
                 url, os.path.join(self.path_out, f'{poem}.txt'))
+
+    @staticmethod
+    def select_or_create(path):
+        try:
+            os.stat(path)
+        except:
+            os.mkdir(path)
+        return path
