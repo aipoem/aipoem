@@ -3,3 +3,5 @@ model : model\w2v.model
 model_params : 
   min_count : 1
   size : 250
+  window= : 10
+  epochs : 50

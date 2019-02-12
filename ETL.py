@@ -18,6 +18,11 @@ class ETL():
 
     def download(self):
 
+        try:
+            os.stat(self.path_out)
+        except:
+            os.mkdir(self.path_out)
+
         for poem in self.poems:
             logger.info(f'Downloading {poem} with urllib2...')
             url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"

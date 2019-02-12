@@ -31,6 +31,7 @@ for f in texts:
         if l =="ARGOMENTO.\n" or i:
             i=True
             if len(l)<22:
+                print(l)
                 continue
             if len(l)>60:
                 continue
@@ -44,7 +45,11 @@ for f in texts:
             elif l[0]=="↑":
                     continue
             else:
-                new_file.write(l)
+                try:
+                    new_file.write(l)
+                except UnicodeEncodeError:
+                    pass
+
     new_file.close()
             
     
