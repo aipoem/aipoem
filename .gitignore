@@ -1,9 +1,8 @@
-.ipynb_checkpoints
-txt_data/*
-parsed_data/*
-
 *.ipynb
 __pycache__
+.ipynb_checkpoints
+
+txt_data/*
 txt_ready/*
 *.model
 
