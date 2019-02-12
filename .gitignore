@@ -3,3 +3,4 @@ txt_data/*
 
 *.ipynb
 __pycache__
+txt_ready/*
