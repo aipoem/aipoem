@@ -1,0 +1,5 @@
+path_in : parsed_data
+model : model\w2v.model
+model_params : 
+  min_count : 1
+  size : 250
