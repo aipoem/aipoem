@@ -4,8 +4,7 @@ parsed_data/*
 
 *.ipynb
 __pycache__
-<<<<<<< HEAD
 txt_ready/*
-=======
 *.model
->>>>>>> 565f19147853f6a88a63e572218f9af9ca4d47c5
+
+.vscode

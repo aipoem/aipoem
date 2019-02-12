@@ -1,4 +1,4 @@
-path_in : parsed_data
+path_in : text_ready
 model : model\w2v.model
 model_params : 
   min_count : 1

@@ -27,7 +27,7 @@ for f in texts:
     #################################### work on the single file
     new_file=open(new_folder+"ready_"+f,"w")
     i=False ## activator
-    for l in lines:
+    for l in lines: # TODO il codice si schianta quando trova il carattere '\u2032' (è come un apostrofo ma ha un codice unicode diverso. Per non impazzire metterei un controllo che per ogni carattere non riconosciuto sostituisce uno spazio)
         if l =="ARGOMENTO.\n" or i:
             i=True
             if len(l)<22:
