@@ -42,11 +42,6 @@ class poema():
         self.model.wv.save(fname)
         return None
 
-    @staticmethod
-    def load_if_exists(model_name):
-        # TODO to be implemented (se trova un modello pretrainato al percorso lo deve caricare)
-        return None
-
     def find_analogies(self, w1, w2, w3):
         r = self.vectors.most_similar(positive=[w1, w3], negative=[w2])
         print("%s - %s = %s - %s" % (w1, w2, r[0][0], w3))
