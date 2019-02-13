@@ -1,4 +1,5 @@
 path_out : 'txt_data'
+path_ready : 'txt_data'
 poems : ["Gerusalemme_liberata",
          "La_Secchia_rapita",
          "Giustizia",

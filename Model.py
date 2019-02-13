@@ -28,8 +28,10 @@ class poema():
         versi = verso(self.path_in)
         self.model = gensim.models.Word2Vec(
             versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
-        self.model.save(self.model_params['filename'])
         return self.model
+
+    def save_model(self):
+        self.model.save(self.model_params['filename'])
 
     @property
     def vectors(self):
