@@ -12,6 +12,7 @@ print('list of texts')
 print(texts)
 # check folders
 new_folder = "text_ready/"
+print("sono qui1")
 try:
     os.stat(new_folder)
 except:
