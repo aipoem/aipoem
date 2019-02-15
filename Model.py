@@ -26,6 +26,9 @@ class TrainLogger(CallbackAny2Vec):
 
     def on_train_end(self, model):
         plt.plot(np.array(self.losses[1:])-np.array(self.losses[0:-1]))
+        plt.ylabel("Loss")
+        plt.xlabel("Epochs")
+        plt.grid(b=True)
         plt.show()
 
 
@@ -51,7 +54,7 @@ class poema():
         self._losses = []
         versi = verso(self.path_in)
         self.model = gensim.models.Word2Vec(
-            versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count(), compute_loss=True, callbacks=[TrainLogger()])
+            versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
         return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True, callbacks=[TrainLogger()])
 
     def save_model(self):
