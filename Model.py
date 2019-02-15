@@ -3,27 +3,31 @@ import os
 import glob
 import gensim
 from multiprocessing import cpu_count
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+import numpy as np
+
 from gensim.test.utils import get_tmpfile
 from gensim.models import KeyedVectors
-
 from gensim.models.callbacks import CallbackAny2Vec
 
 logger = logging.getLogger(__name__)
 
+
 class TrainLogger(CallbackAny2Vec):
     '''Callback to log information about training'''
+
     def __init__(self):
         self.epoch = 0
         self.losses = []
 
     def on_epoch_end(self, model):
-        self.losses.append(model.get_latest_training_loss())    
+        self.losses.append(model.get_latest_training_loss())
         self.epoch += 1
 
-    def on_train_end(self, model):       
-        plt.plot(self.losses)
+    def on_train_end(self, model):
+        plt.plot(np.array(self.losses[1:])-np.array(self.losses[0:-1]))
         plt.show()
+
 
 class poema():
 
@@ -47,8 +51,8 @@ class poema():
         self._losses = []
         versi = verso(self.path_in)
         self.model = gensim.models.Word2Vec(
-                versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count(), compute_loss=True, callbacks=[TrainLogger()])
-        return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs)
+            versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count(), compute_loss=True, callbacks=[TrainLogger()])
+        return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True, callbacks=[TrainLogger()])
 
     def save_model(self):
         self.model.save(self.model_params['filename'])
@@ -58,16 +62,16 @@ class poema():
         return self.model.wv
 
     def save_vectors(self, filename):
-        fname=get_tmpfile(filename)
+        fname = get_tmpfile(filename)
         self.model.wv.save(fname)
         return None
 
     def find_analogies(self, w1, w2, w3):
-        r=self.vectors.most_similar(positive=[w1, w3], negative=[w2])
+        r = self.vectors.most_similar(positive=[w1, w3], negative=[w2])
         print("%s - %s = %s - %s" % (w1, w2, r[0][0], w3))
 
     def nearest_neighbors(self, w):
-        r=self.vectors.most_similar(positive=[w])
+        r = self.vectors.most_similar(positive=[w])
         print(f"Neighbors of {w}:")
         for word, score in r:
             print("\t%s" % word)
@@ -76,11 +80,9 @@ class poema():
 class verso():
     def __init__(self, path):
 
-        self.path_in=path
+        self.path_in = path
 
     def __iter__(self):
         for text in glob.glob(os.path.join(self.path_in, '*.txt')):
             for line in open(text):
                 yield line.split()
-
-
