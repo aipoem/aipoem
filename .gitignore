@@ -7,3 +7,4 @@ text_ready/*
 *.model
 
 .vscode
+*.csv

@@ -1,7 +1,7 @@
 path_in : text_ready
 model_params : 
   filename : w2v.model
-  min_count : 2
-  size : 100
-  window : 5
-  epochs : 30
+  min_count : 0
+  size : 150
+  window : 15
+  epochs : 45
