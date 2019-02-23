@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import io
 import re
-
+import syllable_func as sf
 path = "txt_data/"  # adapt your path
 texts = list()
 for filename in os.listdir(path):
@@ -53,6 +53,7 @@ for f in texts:
         elif l[0] == "↑":
             continue
         else:
+            """
             new_file.write(regola_char.sub("", 
                            regola_eacc.sub("è",
                            regola_i.sub("i", 
@@ -65,5 +66,23 @@ for f in texts:
                            regola_iacc.sub("ì", 
                            regola_aacc.sub("à", 
                            regola_uacc.sub("ù", l)))))))))))).lower())
-
+            """
+            line=regola_char.sub("", 
+                           regola_eacc.sub("è",
+                           regola_i.sub("i", 
+                           regola_a.sub('a', 
+                           regola_space.sub(" ", 
+                           regola_e.sub("e", 
+                           regola_o.sub("o", 
+                           regola_oacc.sub("ó",
+                           regola_u.sub("u", 
+                           regola_iacc.sub("ì", 
+                           regola_aacc.sub("à", 
+                           regola_uacc.sub("ù", l)))))))))))).lower()
+            print(line)
+            print(sf.syllable_division(line))
+            print(sf.count_syllable(line))
+            print("________________________")
+            if 9 < sf.count_syllable(line) < 12: #TODO check if this interval 
+                new_file.write(line)
     new_file.close()
