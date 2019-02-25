@@ -8,7 +8,7 @@ def tonale(word):
     input: string 
     output: boolean 
     """
-    vocali=["a","e","i","o","u"]
+    vocali=["a","e","i","o","u","à","è","ì","ò","ù"]
     tf=False
     lis=["u","i"]
     count=0
@@ -32,7 +32,6 @@ def count_syllable(string):
     for i in syl:
         l+=len(i)
     return(l)
-
 
 def syllable_division(phrase):
     """
