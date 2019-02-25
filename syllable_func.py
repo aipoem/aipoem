@@ -43,7 +43,7 @@ def syllable_division(phrase):
     h_it = Hyphenator('it_IT')
     word_list = phrase.split()
     consonanti=["b","c","d","f","g","h","l","m","n","p","q","r","s","t","v","z"]
-    vocali=["a","e","i","o","u"]
+    vocali=["a","e","i","o","u", "à","è","ì","ò","ù"]
     vocali_sill=["a","e","o"]
     b_lis=['u','i']
     sillabe_frase=[]
