@@ -8,3 +8,6 @@ text_ready/*
 
 .vscode
 *.csv
+esempio_wikipedia.py
+*.bz2
+*zip
