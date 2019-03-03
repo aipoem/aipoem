@@ -33,6 +33,34 @@ def count_syllable(string):
         l+=len(i)
     return(l)
 
+def correction(list_of_syllables): ## I WROTE IT WITHOUT REGRESSION TEST #TODO
+    """
+    This function correct the syllables division merging
+    the single letter (consonant) syllables, into the next one.
+    """
+    i=0
+    while True:
+        #print(i)
+        #print(len(a))
+        if i > (len(list_of_syllables)-1):
+            break
+        if len(list_of_syllables[i])<2 and i == (len(list_of_syllables)-1):
+            #print('qui')
+            #print(a[i])
+            list_of_syllables=list_of_syllables[:i]
+            continue
+        if len(list_of_syllables[i])<2:
+            #print('qyui')
+            #print(a[i])
+            list_of_syllables[i+1]=list_of_syllables[i]+list_of_syllables[i+1]
+            del list_of_syllables[i]
+            if i ==(len(list_of_syllables)-1):
+                break
+            continue
+        i+=1
+    return list_of_syllables
+        
+
 def syllable_division(phrase):
     """
     this function will split in syllabs a given strig
@@ -88,5 +116,6 @@ def syllable_division(phrase):
                             i+=1
 
         sillabe_frase.append(sillabe_custom)
+        sillabe_done=correction(sillabe_frase) ### check it
        # else: sillabe_frase.append(h_it.syllables(w))
-    return sillabe_frase
+    return sillabe_done #### check it 
