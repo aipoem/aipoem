@@ -52,20 +52,6 @@ for f in texts:
         elif l[0] == "↑":
             continue
         else:
-            """
-            new_file.write(regola_char.sub("", 
-                           regola_eacc.sub("è",
-                           regola_i.sub("i", 
-                           regola_a.sub('a', 
-                           regola_space.sub(" ", 
-                           regola_e.sub("e", 
-                           regola_o.sub("o", 
-                           regola_oacc.sub("ó",
-                           regola_u.sub("u", 
-                           regola_iacc.sub("ì", 
-                           regola_aacc.sub("à", 
-                           regola_uacc.sub("ù", l)))))))))))).lower())
-            """
             line=regola_char.sub("", 
                            regola_eacc.sub("è",
                            regola_i.sub("i", 
@@ -83,7 +69,11 @@ for f in texts:
             print(sf.syllable_division(line))
             print(sf.count_syllable(line))
             print("________________________")
+<<<<<<< HEAD
             ####
             if 9 < sf.count_syllable(line) < 12: #TODO check if this interval 
+=======
+            if 10 < sf.count_syllable(line) < 15: #TODO check if this interval 
+>>>>>>> ebb9d2afbeb0f946216de8d0cd992e445b44c995
                 new_file.write(line)
     new_file.close()

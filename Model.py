@@ -85,7 +85,7 @@ class verso():
 
         self.path_in = path
 
-    def __iter__(self):
+    def __iter__(self):# TODO lo script di parsing si potrebbe impacchettare quì dentro
         for text in glob.glob(os.path.join(self.path_in, '*.txt')):
             for line in open(text):
                 yield line.split()
