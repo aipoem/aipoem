@@ -4,7 +4,7 @@ from hyphen import Hyphenator
 ### this function counts vowel and it checks if "u" or "i" is the tonal vocals   
 def tonale(word):
     """
-    In this fuction we are assuming that the tonal vowel is the penultimate of the given word_list
+    In this fuction we are assuming that the tonal vowel is the penultimate of the given word
     input: string 
     output: boolean 
     """
@@ -90,4 +90,32 @@ def syllable_division(phrase):
 
         sillabe_frase.append(sillabe_custom)
        # else: sillabe_frase.append(h_it.syllables(w))
-    return sillabe_frase
+    return group_sy(sillabe_frase)
+
+def group_sy(listt): 
+    """
+    This function groups wrong sillables, composed by just one or two consonant with the follow syllable.
+    NB: this function doesn't control if the next syllable begin with a vowel ##TODO
+    es: (l' , gl' , ..)
+    Input: list
+    Output: list 
+    """
+    flatten = lambda a: [item for sublist in a for item in sublist]
+    a = flatten(listt)
+    consonanti=["b","c","d","f","g","h","l","m","n","p","q","r","s","t","v","z"]
+    i=0
+    while True:
+        if i > (len(a)-1):
+            break
+        if len(a[i])<2 and i == (len(a)-1) and (a[i] in consonanti):
+            #### cut the last false syllable
+            a=a[:i]
+            continue
+        if (len(a[i])<2 and a[i][0] in consonanti) or (len(a[i])==2 and (a[i][0] in consonanti ) and (a[i][1] in consonanti)):
+            a[i+1]=a[i]+a[i+1]
+            del a[i]
+            if i ==(len(a)-1):
+                break
+            continue
+        i+=1
+    return a

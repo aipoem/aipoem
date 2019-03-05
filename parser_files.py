@@ -12,7 +12,6 @@ print('list of texts')
 print(texts)
 # check folders
 new_folder = "text_ready/"
-print("sono qui1")
 try:
     os.stat(new_folder)
 except:
@@ -79,10 +78,12 @@ for f in texts:
                            regola_iacc.sub("ì", 
                            regola_aacc.sub("à", 
                            regola_uacc.sub("ù", l)))))))))))).lower()
+            #### list of print to check the code performance
             print(line)
             print(sf.syllable_division(line))
             print(sf.count_syllable(line))
             print("________________________")
+            ####
             if 9 < sf.count_syllable(line) < 12: #TODO check if this interval 
                 new_file.write(line)
     new_file.close()
