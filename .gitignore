@@ -6,5 +6,6 @@ txt_data/*
 text_ready/*
 *.model
 
+.idea
 .vscode
 *.csv
