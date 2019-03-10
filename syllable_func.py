@@ -1,7 +1,7 @@
 import numpy as np
 from hyphen import Hyphenator
 
-### this function counts vowel and it checks if "u" or "i" is the tonal vocals   
+### this function counts vowel and it checks if "u" or "i" is the tonal vocals
 def tonale(word):
     """
     In this fuction we are assuming that the tonal vowel is the penultimate of the given word_list
@@ -17,7 +17,7 @@ def tonale(word):
             if (i in vocali):
                 count+=1
                 j+=1
-            if count==2 and j>2: 
+            if count==2 and j>2:
                 if i in lis: tf=True
     return tf
 
@@ -59,7 +59,7 @@ def correction(list_of_syllables): ## I WROTE IT WITHOUT REGRESSION TEST #TODO
             continue
         i+=1
     return list_of_syllables
-        
+
 
 def syllable_division(phrase):
     """
@@ -69,6 +69,8 @@ def syllable_division(phrase):
     """
     h_it = Hyphenator('it_IT')
     word_list = phrase.split()
+    if len(word_list) == 0:
+        return []
     consonanti=["b","c","d","f","g","h","l","m","n","p","q","r","s","t","v","z"]
     vocali=["a","e","i","o","u", "à","è","ì","ò","ù"]
     vocali_sill=["a","e","o"]
@@ -96,12 +98,12 @@ def syllable_division(phrase):
                 sillabe_custom.append(w[0])
                 w=w[1:]
             middle_division=h_it.syllables(w)
-            if not middle_division: 
+            if not middle_division:
                 sillabe_custom.append(w)
-            else: 
+            else:
             ### control to recognize wrong syllables
                 for sy in middle_division:
-                    if len(sy) < 3: 
+                    if len(sy) < 3:
                         sillabe_custom.append(sy)
                     else:
                         i=0
@@ -118,4 +120,4 @@ def syllable_division(phrase):
         sillabe_frase.append(sillabe_custom)
         sillabe_done=correction(sillabe_frase) ### check it
        # else: sillabe_frase.append(h_it.syllables(w))
-    return sillabe_done #### check it 
+    return sillabe_done #### check it
