@@ -7,14 +7,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from gensim.test.utils import get_tmpfile
-from gensim.models import KeyedVectors
 from gensim.models.callbacks import CallbackAny2Vec
 
 logger = logging.getLogger(__name__)
 
 
 class TrainLogger(CallbackAny2Vec):
-    '''Callback to log information about training'''
+    """
+    Callback to log information about training
+    """
 
     def __init__(self):
         self.epoch = 0
@@ -25,37 +26,38 @@ class TrainLogger(CallbackAny2Vec):
         self.epoch += 1
 
     def on_train_end(self, model):
-        plt.plot(np.array(self.losses[1:])-np.array(self.losses[0:-1]))
+        plt.plot(np.array(self.losses[1:]) - np.array(self.losses[0:-1]))
         plt.ylabel("Loss")
         plt.xlabel("Epochs")
         plt.grid(b=True)
         plt.show()
 
 
-class poema():
+class Poema:
 
     def __init__(self, params):
-
         self.path_in = params['path_in']
         self.model = None
         self._epochs = params['model_params']['epochs']
         self.model_params = params['model_params']
+        self._losses = []
 
     @property
     def epochs(self):
         return self._epochs
 
-    def read_poem(self, text):
+    @staticmethod
+    def read_poem(text):
         f = open(os.path.join(text), "r")
         return f.read()
 
     def train(self):
         # At each loop, the loaded poem is appended to the string txt
-        self._losses = []
-        versi = verso(self.path_in)
+        versi = Verso(self.path_in)
         self.model = gensim.models.Word2Vec(
             versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
-        return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True, callbacks=[TrainLogger()])
+        return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True,
+                                callbacks=[TrainLogger()])
 
     def save_model(self):
         self.model.save(self.model_params['filename'])
@@ -80,12 +82,12 @@ class poema():
             print("\t%s" % word)
 
 
-class verso():
+class Verso:
     def __init__(self, path):
 
         self.path_in = path
 
-    def __iter__(self):# TODO lo script di parsing si potrebbe impacchettare quì dentro
+    def __iter__(self):  # TODO lo script di parsing si potrebbe impacchettare quì dentro
         for text in glob.glob(os.path.join(self.path_in, '*.txt')):
             for line in open(text):
                 yield line.split()

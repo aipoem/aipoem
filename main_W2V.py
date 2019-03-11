@@ -1,12 +1,8 @@
-import spacy
 import os
-from Model import poema
-import glob
+from Model import Poema
 import sys
 import logging
-import gensim
 import yaml
-
 
 if __name__ == '__main__':
     logging.basicConfig(stream=sys.stdout,
@@ -20,7 +16,7 @@ if __name__ == '__main__':
     with open(os.path.join("config_file", "Model_params.yaml"), 'r') as stream:
         setting = yaml.load(stream)
 
-    mymodel = poema(setting)
+    mymodel = Poema(setting)
     modello = mymodel.train()
 
     logger.info("Let's check what our model learnt!")

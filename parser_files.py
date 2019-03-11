@@ -1,9 +1,7 @@
 import os
-import sys
-import numpy as np
-import io
 import re
 import syllable_func as sf
+
 path = "txt_data/"  # adapt your path
 texts = list()
 for filename in os.listdir(path):
@@ -14,14 +12,15 @@ print(texts)
 new_folder = "text_ready/"
 try:
     os.stat(new_folder)
-except:
+except FileNotFoundError:
     os.mkdir(new_folder)
-###
 
-regola_e = re.compile("[ëêë]")# regola per sostituire le grafie particolari della e
-regola_eacc = re.compile("é") # regola per uniformare gli accenti
+# regola per sostituire le grafie particolari della e
+regola_e = re.compile("[ëê]")
+# regola per uniformare gli accenti
+regola_eacc = re.compile("é")
 
-regola_i = re.compile("[ïjî]")  
+regola_i = re.compile("[ïjî]")
 regola_iacc = re.compile("í")
 
 regola_a = re.compile('[âä]')
@@ -42,12 +41,12 @@ for f in texts:
     if os.path.isfile(os.path.join(new_folder, f'ready_{f}')):
         print(f'File {f} already parsed')
     else:
-        print(path+f)
-        text = open(path+f, encoding="utf8")
+        print(path + f)
+        text = open(path + f, encoding="utf8")
         lines = text.readlines()
         text.close()
         # work on the single file
-        new_file = open(new_folder+"ready_"+f, "w")
+        new_file = open(new_folder + "ready_" + f, "w")
         i = False  # activator
         for l in lines:
             if len(l) < 22 or len(l) > 60:
@@ -55,22 +54,24 @@ for f in texts:
             elif l[0] == "↑":
                 continue
             else:
-                line=regola_char.sub("",
-                               regola_eacc.sub("è",
-                               regola_i.sub("i",
-                               regola_a.sub('a',
-                               regola_space.sub(" ",
-                               regola_e.sub("e",
-                               regola_o.sub("o",
-                               regola_oacc.sub("ó",
-                               regola_u.sub("u",
-                               regola_iacc.sub("ì",
-                               regola_aacc.sub("à",
-                               regola_uacc.sub("ù", l)))))))))))).lower()
+                line = regola_char.sub(
+                    "", regola_eacc.sub(
+                        "è", regola_i.sub(
+                            "i", regola_a.sub(
+                                'a', regola_space.sub(
+                                    " ", regola_e.sub(
+                                        "e", regola_o.sub(
+                                            "o", regola_oacc.sub(
+                                                "ó", regola_u.sub(
+                                                    "u", regola_iacc.sub(
+                                                        "ì", regola_aacc.sub(
+                                                            "à", regola_uacc.sub(
+                                                                "ù", l)))))))))))).lower()
                 print(line)
                 print(sf.syllable_division(line))
                 print(sf.count_syllable(line))
                 print("________________________")
-                if 10 < sf.count_syllable(line) < 15: #TODO check if this interval
+                # TODO check if this interval is ok
+                if 10 < sf.count_syllable(line) < 15:
                     new_file.write(line)
         new_file.close()

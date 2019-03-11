@@ -5,7 +5,7 @@ import os
 logger = logging.getLogger(__name__)
 
 
-class ETL():
+class ETL:
 
     def __init__(self, params):
 
