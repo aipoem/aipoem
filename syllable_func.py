@@ -4,7 +4,8 @@ from hyphen import Hyphenator
 ### this function counts vowel and it checks if "u" or "i" is the tonal vocals   
 def tonale(word):
     """
-    In this fuction we are assuming that the tonal vowel is the penultimate of the given word
+    In this fuction we are assuming that the tonal vowel is the penultimate vowel, and then
+    we check that it is 'i' or 'u'.
     input: string 
     output: boolean 
     """
@@ -14,10 +15,10 @@ def tonale(word):
     count=0
     j=0
     for i in word[::-1]:
-            if (i in vocali):
+        j+=1 
+        if (i in vocali):
                 count+=1
-                j+=1
-            if count==2 and j>2: 
+        if count==2 and j>2: 
                 if i in lis: tf=True
     return tf
 
