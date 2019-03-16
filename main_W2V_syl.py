@@ -19,10 +19,12 @@ if __name__ == '__main__':
     mymodel = Poema(setting)
     modello = mymodel.train()
 
-    logger.info("Let's check what our model learnt!")
+    if setting['save']:
+        logger.info("Let's check what our model learnt!")
+        mymodel.save_model()
 
-    logger.info("TEST 1: find analogies of a given word")
-    mymodel.nearest_neighbors('amore')
-
-    logger.info("TEST 2: complete the analogy")
-    mymodel.find_analogies('spada', 'cavalier', 'moro')
+    # logger.info("TEST 1: find analogies of a given word")
+    # mymodel.nearest_neighbors('amore')
+    #
+    # logger.info("TEST 2: complete the analogy")
+    # mymodel.find_analogies('spada', 'cavalier', 'moro')
