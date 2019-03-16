@@ -15,9 +15,9 @@ def tonale(word):
     count = 0
     j = 0
     for i in word[::-1]:
+        j += 1
         if i in vocali:
             count += 1
-            j += 1
         if count == 2 and j > 2:
             if i in lis:
                 tf = True
