@@ -38,10 +38,17 @@ text = [j for sub in text_list2d for j in sub]
 
 X = []
 Y = []
+# X_word = []
+# Y_word = []
 length = len(text)
 seq_length = 5
 for i in range(0, length-seq_length, 1):
     sequence = text[i:i + seq_length]
     label = text[i + seq_length]
-    X.append([char_to_n[char] for char in sequence])
-    Y.append(char_to_n[label])
+    # X_word.append([char for char in sequence])
+    # Y_word.append(label)
+
+    # transform syllables in w2v vectors through the trained model
+    X.append([mymodel.wv.get_vector(char) for char in sequence])
+    Y.append(mymodel.wv.get_vector(label))
+
