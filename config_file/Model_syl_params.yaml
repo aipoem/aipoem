@@ -1,0 +1,7 @@
+path_in : text_ready
+model_params : 
+  filename : w2v_syllable.model
+  min_count : 0
+  size : 150
+  window : 15
+  epochs : 45
