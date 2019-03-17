@@ -69,11 +69,6 @@ for f in texts:
             print(sf.syllable_division(line))
             print(sf.count_syllable(line))
             print("________________________")
-<<<<<<< HEAD
-            ####
-            if 9 < sf.count_syllable(line) < 12: #TODO check if this interval 
-=======
-            if 10 < sf.count_syllable(line) < 15: #TODO check if this interval 
->>>>>>> ebb9d2afbeb0f946216de8d0cd992e445b44c995
+            if 10 <= sf.count_syllable(line) < 15: #TODO check if this interval 
                 new_file.write(line)
     new_file.close()
