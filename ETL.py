@@ -1,6 +1,7 @@
 import urllib.request
 import logging
 import os
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -20,10 +21,14 @@ class ETL():
     def download(self):
 
         for poem in self.poems:
-            logger.info(f'Downloading {poem} with urllib2...')
-            url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
-            urllib.request.urlretrieve(
-                url, os.path.join(self.path_out, f'{poem}.txt'))
+            txt_out = os.path.join(self.path_out, f'{poem}.txt')
+            if Path(txt_out).exists():
+                logger.info(f"Skipping {poem} as it's already found in the local folder...")
+            else:
+                logger.info(f'Downloading {poem} with urllib2...')
+                url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
+                urllib.request.urlretrieve(
+                    url, txt_out)
 
     def parse(self):
         # TODO lo script di parsing si potrebbe impacchettare quì dentro
