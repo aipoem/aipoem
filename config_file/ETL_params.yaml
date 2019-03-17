@@ -1,7 +1,7 @@
 path_out : 'txt_data'
 path_ready : 'txt_data'
 poems : [
-"A_Francesco_Saverio_Fabre",
+#"A_Francesco_Saverio_Fabre",
 "A_Vincenzo_Monti",
 "Adone",
 "Al_Principe_Don_Sigismondo_Chigi",
