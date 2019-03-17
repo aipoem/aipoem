@@ -1,4 +1,4 @@
-path_in : text_ready
+path_in : txt_parsed_word
 model_params : 
   filename : w2v.model
   min_count : 0

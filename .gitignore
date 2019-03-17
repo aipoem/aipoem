@@ -4,6 +4,8 @@ __pycache__
 
 txt_data/*
 text_ready/*
+txt_parsed_syll/*
+txt_parsed_word/*
 text_ready_syl/*
 *.model
 
