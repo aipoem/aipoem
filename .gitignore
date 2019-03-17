@@ -4,6 +4,7 @@ __pycache__
 
 txt_data/*
 text_ready/*
+text_ready_syl/*
 *.model
 
 .idea
