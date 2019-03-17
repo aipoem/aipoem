@@ -1,7 +1,11 @@
 import urllib.request
 import logging
 import os
+import re
 from pathlib import Path
+from hyphen import Hyphenator
+import syllable_func as sf
+
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +35,71 @@ class ETL:
 
     def parse(self):
         # TODO lo script di parsing si potrebbe impacchettare quì dentro
+        texts = list()
+        for filename in os.listdir(self.path_out):
+            texts.append(filename)
+        logger.info(f'Found {len(texts)} .txt files:')
+        logger.info(texts)
+
+        regola_e = re.compile("[êë]")# regola per sostituire le grafie particolari della e
+        regola_eacc = re.compile("é") # regola per uniformare gli accenti
+
+        regola_i = re.compile("[ïjî]")
+        regola_iacc = re.compile("í")
+
+        regola_a = re.compile("[âǻä]")
+        regola_aacc = re.compile('á')
+
+        regola_o = re.compile('ô')
+        regola_oacc = re.compile('ò')
+
+        regola_u = re.compile('ü')
+        regola_uacc = re.compile("ú")
+
+        # regola per cancellare punteggiatura e caratteri non validi
+        regola_char = re.compile(
+            "[©°―\-/“„=ª\{\}\[\]\\/|&><\*\(.\d!?\,\;\:\-\)\"\,\«\»ωεἠγήρτφὃνἄἀάὸσἢκαμῦςοιὶἱθᾶέπληῶό—('ǻ')]")
+        regola_space = re.compile("[’\']")
+
+
+        for f in texts:
+            if os.path.isfile(os.path.join(self.path_ready, f'ready_{f}')):
+                print(f'File {f} already parsed')
+            else:
+                print(os.path.join(self.path_out, f))
+                text = open(os.path.join(self.path_out, f), encoding="utf8")
+                lines = text.readlines()
+                text.close()
+                # work on the single file
+                new_file = open(self.path_ready + "ready_" + f, "w")
+                i = False  # activator
+                for l in lines:
+                    if len(l) < 22 or len(l) > 60:
+                        continue
+                    elif l[0] == "↑":
+                        continue
+                    else:
+                        line = regola_char.sub(
+                            "", regola_eacc.sub(
+                                "è", regola_i.sub(
+                                    "i", regola_a.sub(
+                                        'a', regola_space.sub(
+                                            " ", regola_e.sub(
+                                                "e", regola_o.sub(
+                                                    "o", regola_oacc.sub(
+                                                        "ó", regola_u.sub(
+                                                            "u", regola_iacc.sub(
+                                                                "ì", regola_aacc.sub(
+                                                                    "à", regola_uacc.sub(
+                                                                        "ù", l)))))))))))).lower()
+                        print(line)
+                        print(sf.syllable_division(line))
+                        print(sf.count_syllable(line))
+                        print("________________________")
+                        # TODO check if this interval is ok
+                        if 10 < sf.count_syllable(line) < 15:
+                            new_file.write(line)
+                new_file.close()
         return None
 
     def parse_syllables(self):
