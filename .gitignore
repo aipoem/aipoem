@@ -6,7 +6,7 @@ txt_data/*
 text_ready/*
 text_ready_syl/*
 *.model
-
+enviroment_aa.yaml
 .idea
 .vscode
 *.csv

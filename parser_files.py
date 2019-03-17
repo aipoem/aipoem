@@ -67,11 +67,14 @@ for f in texts:
                                                         "ì", regola_aacc.sub(
                                                             "à", regola_uacc.sub(
                                                                 "ù", l)))))))))))).lower()
-                print(line)
-                print(sf.syllable_division(line))
-                print(sf.count_syllable(line))
-                print("________________________")
+               ### 
+               #print(line)
+                si=sf.syllable_division(line)
+                #print(len(si))
+                #print(si)
+                #print("________________________")
                 # TODO check if this interval is ok
-                if 10 < sf.count_syllable(line) < 15:
+                #if 10 < sf.count_syllable(line) < 15:
+                if 10 < len(si) < 15: ### this function is working because the outcome of the func syllable_division is a sigle array
                     new_file.write(line)
         new_file.close()
