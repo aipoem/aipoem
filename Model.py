@@ -11,7 +11,6 @@ from gensim.models.callbacks import CallbackAny2Vec
 
 logger = logging.getLogger(__name__)
 
-
 class TrainLogger(CallbackAny2Vec):
     """
     Callback to log information about training

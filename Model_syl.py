@@ -11,6 +11,7 @@ from gensim.models.callbacks import CallbackAny2Vec
 
 logger = logging.getLogger(__name__)
 
+#TODO sembra non uguale a Model.py, forse se ne potrebbe tenere uno chiamato con parametri diversi a seconda del caso
 
 class TrainLogger(CallbackAny2Vec):
     """

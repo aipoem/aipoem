@@ -7,7 +7,7 @@ from hyphen import Hyphenator
 import syllable_func as sf
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("__main__")
 
 
 class ETL:
@@ -16,7 +16,7 @@ class ETL:
 
         self._poems = params['poems']
         self.path_out = self.select_or_create(params['path_out'])
-        self.path_ready = self.select_or_create(params['path_ready'])
+        self.path_word = self.select_or_create(params['path_word'])
 
     @property
     def poems(self):
@@ -27,22 +27,26 @@ class ETL:
         for poem in self.poems:
             txt_out = os.path.join(self.path_out, f'{poem}.txt')
             if Path(txt_out).exists():
-                logger.info(f"Skipping {poem} as it's already found in the local folder...")
+                logger.info(
+                    f"Skipping {poem} as it's already found in the local folder...")
             else:
                 logger.info(f'Downloading {poem} with urllib2...')
                 url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
-                urllib.request.urlretrieve(url, txt_out)
+                try:
+                    urllib.request.urlretrieve(url, txt_out)
+                except urllib.error.HTTPError:
+                    logger.error(f"{poem} not downloaded due to an HTTP error")
 
-    def parse(self):
-        # TODO lo script di parsing si potrebbe impacchettare quì dentro
+    def parse(self, verbose=False):
         texts = list()
         for filename in os.listdir(self.path_out):
             texts.append(filename)
         logger.info(f'Found {len(texts)} .txt files:')
         logger.info(texts)
 
-        regola_e = re.compile("[êë]")# regola per sostituire le grafie particolari della e
-        regola_eacc = re.compile("é") # regola per uniformare gli accenti
+        # regola per sostituire le grafie particolari della e
+        regola_e = re.compile("[êë]")
+        regola_eacc = re.compile("é")  # regola per uniformare gli accenti
 
         regola_i = re.compile("[ïjî]")
         regola_iacc = re.compile("í")
@@ -61,17 +65,16 @@ class ETL:
             "[©°―\-/“„=ª\{\}\[\]\\/|&><\*\(.\d!?\,\;\:\-\)\"\,\«\»ωεἠγήρτφὃνἄἀάὸσἢκαμῦςοιὶἱθᾶέπληῶό—('ǻ')]")
         regola_space = re.compile("[’\']")
 
-
         for f in texts:
-            if os.path.isfile(os.path.join(self.path_ready, f'ready_{f}')):
-                print(f'File {f} already parsed')
+            if os.path.isfile(os.path.join(self.path_word, f'ready_{f}')):
+                logger.info(f'File {f} already parsed, skipping...')
             else:
-                print(os.path.join(self.path_out, f))
+                logger.info(f'Parsing file {os.path.join(self.path_out, f)}...')
                 text = open(os.path.join(self.path_out, f), encoding="utf8")
                 lines = text.readlines()
                 text.close()
                 # work on the single file
-                new_file = open(self.path_ready + "ready_" + f, "w")
+                new_file = open(os.path.join(self.path_word, "ready_" + f), "w")
                 i = False  # activator
                 for l in lines:
                     if len(l) < 22 or len(l) > 60:
@@ -92,15 +95,15 @@ class ETL:
                                                                 "ì", regola_aacc.sub(
                                                                     "à", regola_uacc.sub(
                                                                         "ù", l)))))))))))).lower()
-                        print(line)
-                        print(sf.syllable_division(line))
-                        print(sf.count_syllable(line))
-                        print("________________________")
+                        if verbose:
+                            print(line)
+                            print(sf.syllable_division(line))
+                            print(sf.count_syllable(line))
+                            print("________________________")
                         # TODO check if this interval is ok
-                        if 10 < sf.count_syllable(line) < 15:
-                            new_file.write(line)
+                        new_file.write(line)
                 new_file.close()
-        return None
+        return True
 
     def parse_syllables(self):
         # TODO lo script di parsing si potrebbe impacchettare quì dentro
@@ -108,6 +111,8 @@ class ETL:
 
     @staticmethod
     def select_or_create(path):
-        try: os.stat(path)
-        except FileNotFoundError: os.mkdir(path)
+        try:
+            os.stat(path)
+        except FileNotFoundError:
+            os.mkdir(path)
         return path

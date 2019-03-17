@@ -1,7 +1,10 @@
 from hyphen import Hyphenator
-
-
+from utils.constants import vocali, consonanti
+import logging
 # this function counts vowel and it checks if "u" or "i" is the tonal vocals
+
+logger = logging.getLogger("__main__")
+
 def tonale(word):
     """
     In this fuction we are assuming that the tonal vowel is the penultimate
@@ -9,7 +12,6 @@ def tonale(word):
     input: string 
     output: boolean 
     """
-    vocali = ["a", "e", "i", "o", "u", "à", "è", "ì", "ò", "ù"]
     tf = False
     lis = ["u", "i"]
     count = 0
@@ -75,9 +77,6 @@ def syllable_division(phrase):
     word_list = phrase.split()
     if len(word_list) == 0:
         return []
-    consonanti = ["b", "c", "d", "f", "g", "h", "l", "m", "n",
-                  "p", "q", "r", "s", "t", "v", "z"]
-    vocali = ["a", "e", "i", "o", "u", "à", "è", "ì", "ò", "ù"]
     vocali_sill = ["a", "e", "o"]
     b_lis = ['u', 'i']
     sillabe_frase = []
@@ -141,7 +140,6 @@ def group_sy(listt):
     """
     flatten = lambda a: [item for sublist in a for item in sublist]
     a = flatten(listt)
-    consonanti=["b","c","d","f","g","h","l","m","n","p","q","r","s","t","v","z"]
     i=0
     while True:
         if i > (len(a)-1):
@@ -151,7 +149,11 @@ def group_sy(listt):
             a=a[:i]
             continue
         if (len(a[i])<2 and a[i][0] in consonanti) or (len(a[i])==2 and (a[i][0] in consonanti ) and (a[i][1] in consonanti)):
-            a[i+1]=a[i]+a[i+1]
+            try:
+                a[i+1]=a[i]+a[i+1]
+            except IndexError:
+                logger.error(f"Unable to parse {a}, skipping")
+                return []
             del a[i]
             if i ==(len(a)-1):
                 break
