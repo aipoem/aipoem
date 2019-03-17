@@ -33,8 +33,12 @@ class ETL():
         # TODO lo script di parsing si potrebbe impacchettare quì dentro
         return None
 
+    def parse_syllables(self):
+        # TODO lo script di parsing si potrebbe impacchettare quì dentro
+        return None
+
     @staticmethod
     def select_or_create(path):
         try: os.stat(path)
-        except: os.mkdir(path)
+        except FileNotFoundError: os.mkdir(path)
         return path

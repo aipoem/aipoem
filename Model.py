@@ -54,7 +54,7 @@ class poema():
         self._losses = []
         versi = verso(self.path_in)
         self.model = gensim.models.Word2Vec(
-            versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
+            versi, window = self.model_params["window"], min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
         return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True, callbacks=[TrainLogger()])
 
     def save_model(self):

@@ -19,13 +19,13 @@ except:
     os.mkdir(new_folder)
 ###
 
-regola_e = re.compile("[ëêë]")# regola per sostituire le grafie particolari della e
+regola_e = re.compile("[ëëêë]")# regola per sostituire le grafie particolari della e
 regola_eacc = re.compile("é") # regola per uniformare gli accenti
 
 regola_i = re.compile("[ïjî]")  
 regola_iacc = re.compile("í")
 
-regola_a = re.compile('[âä]')
+regola_a = re.compile("[âǻä]")
 regola_aacc = re.compile('á')
 
 regola_o = re.compile('ô')
@@ -36,7 +36,7 @@ regola_uacc = re.compile("ú")
 
 # regola per cancellare punteggiatura e caratteri non validi
 regola_char = re.compile(
-    "[©°\―\-\/“„=ª\{\[\]\\/|&><\*\(.\d!?\,\;\:\-\)\"\,\«\»ωεἠγήρτφὃνἄἀάὸσἢκαμῦςοιὶἱθᾶέπληῶό]")
+    "[©°―\-/“„=ª\{\}\[\]\\/|&><\*\(.\d!?\,\;\:\-\)\"\,\«\»ωεἠγήρτφὃνἄἀάὸσἢκαμῦςοιὶἱθᾶέπληῶό—('ǻ')]")
 regola_space = re.compile("[’\']")
 
 for f in texts:
