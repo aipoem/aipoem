@@ -1,6 +1,7 @@
 import os
 import re
 import syllable_func as sf
+from utils.utils_functions import intersperse
 
 path = "txt_data/"  # adapt your path
 texts = list()
@@ -9,7 +10,7 @@ for filename in os.listdir(path):
 print('list of texts')
 print(texts)
 # check folders
-new_folder = "text_ready/"
+new_folder = "text_ready_syl/"
 try:
     os.stat(new_folder)
 except FileNotFoundError:
@@ -41,7 +42,7 @@ for f in texts:
     if os.path.isfile(os.path.join(new_folder, f'ready_{f}')):
         print(f'File {f} already parsed')
     else:
-        print(path + f)
+        print('Processing file ', path + f)
         text = open(path + f, encoding="utf8")
         lines = text.readlines()
         text.close()
@@ -67,11 +68,17 @@ for f in texts:
                                                         "ì", regola_aacc.sub(
                                                             "à", regola_uacc.sub(
                                                                 "ù", l)))))))))))).lower()
-                print(line)
-                print(sf.syllable_division(line))
-                print(sf.count_syllable(line))
-                print("________________________")
+                # print(line)
+                # print(sf.syllable_division(line))
+                # print(sf.count_syllable(line))
+                # print("________________________")
                 # TODO check if this interval is ok
                 if 10 < sf.count_syllable(line) < 15:
-                    new_file.write(line)
+                    syl_line = sf.syllable_division(line)
+                    space_separator = ['-']
+                    syl_line = intersperse(syl_line, space_separator)
+                    new_line_separator = ['-n-\n']
+                    syl_line.append(new_line_separator)
+                    parsed_line = ' '.join([j for sub in syl_line for j in sub])
+                    new_file.write(parsed_line)
         new_file.close()

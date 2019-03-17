@@ -4,7 +4,6 @@ import os
 from ETL import ETL
 import logging
 
-
 if __name__ == '__main__':
     logging.basicConfig(stream=sys.stdout,
                         level=logging.INFO,

@@ -5,7 +5,7 @@ import os
 logger = logging.getLogger(__name__)
 
 
-class ETL():
+class ETL:
 
     def __init__(self, params):
 
@@ -20,10 +20,13 @@ class ETL():
     def download(self):
 
         for poem in self.poems:
-            logger.info(f'Downloading {poem} with urllib2...')
-            url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
-            urllib.request.urlretrieve(
-                url, os.path.join(self.path_out, f'{poem}.txt'))
+            if os.path.isfile(os.path.join(self.path_out, poem + '.txt')):
+                logger.info(f'File {poem} already downloaded')
+            else:
+                logger.info(f'Downloading {poem} with urllib2...')
+                url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
+                urllib.request.urlretrieve(
+                    url, os.path.join(self.path_out, f'{poem}.txt'))
 
     def parse(self):
         # TODO lo script di parsing si potrebbe impacchettare quì dentro
