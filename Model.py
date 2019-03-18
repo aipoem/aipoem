@@ -11,7 +11,6 @@ from gensim.models.callbacks import CallbackAny2Vec
 
 logger = logging.getLogger(__name__)
 
-
 class TrainLogger(CallbackAny2Vec):
     """
     Callback to log information about training
@@ -55,9 +54,8 @@ class Poema:
         # At each loop, the loaded poem is appended to the string txt
         versi = Verso(self.path_in)
         self.model = gensim.models.Word2Vec(
-            versi, min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
-        return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True,
-                                callbacks=[TrainLogger()])
+            versi, window = self.model_params["window"], min_count=self.model_params["min_count"], size=self.model_params["size"], workers=cpu_count())
+        return self.model.train(versi, total_examples=self.model.corpus_count, epochs=self.epochs, compute_loss=True, callbacks=[TrainLogger()])
 
     def save_model(self):
         self.model.save(self.model_params['filename'])
