@@ -101,9 +101,9 @@ def syllable_division(phrase):
                     sillabe_custom.append(sy)
                     break
         else:
-            if ((w[0] in vocali) and (w[1] in consonanti) and (w[2] in vocali)) or (
-                    (w[0] in vocali) and (w[1] == "s") and (w[2] in consonanti) 
-                    or ((w[0] in vocali) and (w[1]=="g" ) and (w[2] in consonanti))):
+            if (((w[0] in vocali) and (w[1] in consonanti) and (w[2] in vocali)) or 
+                ((w[0] in vocali) and (w[1] == "s") and (w[2] in consonanti)) 
+                  or ((w[0] in vocali) and (w[1]=="g" ) and (w[2] in consonanti))):
                 sillabe_custom.append(w[0])
                 w = w[1:]
             middle_division = h_it.syllables(w)
