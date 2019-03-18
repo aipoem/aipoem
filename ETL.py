@@ -101,6 +101,7 @@ class ETL:
                             print(sf.count_syllable(line))
                             print("________________________")
                         # TODO check if this interval is ok
+                        if 10<=len(sf.syllable_division(line))<15 ## this function, due to this control, will be slower than before #CHECK if it improves the performances or delete it
                         new_file.write(line)
                 new_file.close()
         return True
