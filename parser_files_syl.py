@@ -76,9 +76,9 @@ for f in texts:
                 syl_line = sf.syllable_division(line)
                 if 10 < len(syl_line) < 15:
                     #syl_line = sf.syllable_division(line)
-                    space_separator = ['-']
+                    space_separator = [' - ']
                     syl_line = intersperse(syl_line, space_separator)
-                    new_line_separator = ['-n-\n']
+                    new_line_separator = [' -n-\n']
                     syl_line.append(new_line_separator)
                     parsed_line = ' '.join(
                         [j for sub in syl_line for j in sub])

@@ -16,8 +16,5 @@ sillabe.txt
 esempio_wikipedia.py
 *.bz2
 *zip
-<<<<<<< HEAD
-=======
 
 docs/*
->>>>>>> master

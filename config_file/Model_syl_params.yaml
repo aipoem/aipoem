@@ -1,4 +1,4 @@
-path_in : txt_parsed_syll
+path_in : text_ready_syl
 model_params : 
   filename : w2v_syllable.model
   min_count : 0
