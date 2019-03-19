@@ -8,12 +8,16 @@ txt_parsed_syll/*
 txt_parsed_word/*
 text_ready_syl/*
 *.model
-
+enviroment_aa.yaml
 .idea
 .vscode
 *.csv
+sillabe.txt
 esempio_wikipedia.py
 *.bz2
 *zip
+<<<<<<< HEAD
+=======
 
 docs/*
+>>>>>>> master
