@@ -18,4 +18,4 @@ if __name__ == '__main__':
 
     my_etl = ETL(setting)
     my_etl.download()
-    my_etl.parse(verbose=True)
+    my_etl.parse(verbose=False)
