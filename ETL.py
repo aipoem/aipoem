@@ -74,13 +74,15 @@ class ETL:
                 lines = text.readlines()
                 text.close()
                 # work on the single file
-                new_file = open(os.path.join(self.path_word, "ready_" + f), "w")
+                new_file = open(os.path.join(self.path_word, "ready_" + f), "w", encoding='utf8')
                 i = False  # activator
                 for l in lines:
                     if len(l) < 22 or len(l) > 60:
                         continue
                     elif l[0] == "↑":
                         continue
+                    elif 'Informazioni su questa edizione elettronica:' in l:
+                        break
                     else:
                         line = regola_char.sub(
                             "", regola_eacc.sub(

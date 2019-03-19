@@ -15,3 +15,5 @@ text_ready_syl/*
 esempio_wikipedia.py
 *.bz2
 *zip
+
+docs/*
