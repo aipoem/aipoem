@@ -12,10 +12,7 @@ enviroment_aa.yaml
 .idea
 .vscode
 *.csv
-<<<<<<< HEAD
 sillabe.txt
-=======
 esempio_wikipedia.py
 *.bz2
 *zip
->>>>>>> 7415e252dad0542c69036aab1ab1abf3e9cb14bf
