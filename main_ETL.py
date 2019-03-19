@@ -17,5 +17,5 @@ if __name__ == '__main__':
         setting = yaml.load(stream)
 
     my_etl = ETL(setting)
-    #my_etl.download()
+    my_etl.download()
     my_etl.parse(verbose=False)
