@@ -1,0 +1,4 @@
+PyHyphen
+gensim
+tensorflow-gpu
+pandas

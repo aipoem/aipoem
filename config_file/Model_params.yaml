@@ -1,0 +1,7 @@
+path_in : txt_parsed_word
+model_params : 
+  filename : w2v.model
+  min_count : 0
+  size : 70
+  window : 7
+  epochs : 500
