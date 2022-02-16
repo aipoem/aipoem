@@ -5,11 +5,18 @@ import re
 from pathlib import Path
 from hyphen import Hyphenator
 import syllable_func as sf
+from urllib.request import Request, urlopen
 
 
 logger = logging.getLogger("__main__")
 
-
+"""
+req = Request('https://ws-export.wmcloud.org/?lang=it&format=txt&page=elegie+romane', headers={'User-Agent': 'Mozilla/5.0'})
+webpage = urlopen(req).read()
+textfile = open("txt_out.txt", "w")
+a = textfile.write(webpage)
+textfile.close()
+"""
 class ETL:
 
     def __init__(self, params):
@@ -34,8 +41,8 @@ class ETL:
                 url = f"https://tools.wmflabs.org/wsexport/tool/book.php?lang=it&format=txt&page={poem}"
                 try:
                     urllib.request.urlretrieve(url, txt_out)
-                except urllib.error.HTTPError:
-                    logger.error(f"{poem} not downloaded due to an HTTP error")
+                except urllib.error.HTTPError as HTTP_ERROR:
+                    logger.error(f"{poem} not downloaded due to {str(HTTP_ERROR)}")
 
     def parse(self, verbose=False):
         texts = list()
@@ -103,8 +110,8 @@ class ETL:
                             print(sf.count_syllable(line))
                             print("________________________")
                         # TODO check if this interval is ok
-                        if 10<=len(sf.syllable_division(line))<15 ## this function, due to this control, will be slower than before #CHECK if it improves the performances or delete it
-                        new_file.write(line)
+                        if 10<=len(sf.syllable_division(line))<15: ## this function, due to this control, will be slower than before #CHECK if it improves the performances or delete it
+                            new_file.write(line)
                 new_file.close()
         return True
 

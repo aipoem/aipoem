@@ -4,6 +4,16 @@ import os
 from ETL import ETL
 import logging
 
+def load_yaml(filename: str) -> dict:
+    """
+    Utility function to load a yaml file into a pyhon dict
+    Parameters:
+    - filename: str -> fullpath of the yaml file
+    """
+    assert (filename.endswith("yaml") or filename.endswith("yml")), "Not a yaml extention!"
+    with open(filename, 'r', encoding="utf-8") as handler:
+        return yaml.load(handler, Loader=yaml.FullLoader)
+
 if __name__ == '__main__':
     logging.basicConfig(stream=sys.stdout,
                         level=logging.INFO,
@@ -13,8 +23,7 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
 
     logger.info('Loading configuration file')
-    with open(os.path.join("config_file", "ETL_params.yaml"), 'r') as stream:
-        setting = yaml.load(stream)
+    setting = load_yaml(os.path.join("config_file", "ETL_params.yaml"))
 
     my_etl = ETL(setting)
     my_etl.download()
